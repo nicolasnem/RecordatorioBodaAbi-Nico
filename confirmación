@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Se acerca nuestra boda! - Abigail & Nicolás</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose-pale: #f5e6e0;
+            --rose-medium: #e8c4c4;
+            --rose-deep: #d4a5a5;
+            --rose-dark: #b88888;
+            --green-sage: #a8b5a0;
+            --green-dark: #7a8b74;
+            --gold: #c9b037;
+            --text-dark: #4a4a4a;
+            --text-light: #f9f7f5;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #faf7f5 0%, #f5e6e0 50%, #f0d5d5 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo animado con corazones */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--rose-medium);
+            opacity: 0.4;
+            animation: floatUp 12s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Tarjeta principal */
+        .reminder-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 60px rgba(180, 136, 136, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+            border: 1px solid rgba(232, 196, 196, 0.3);
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decoración floral */
+        .flower-deco {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: swing 3s ease-in-out infinite;
+        }
+
+        .flower-deco.top-left { top: 15px; left: 15px; }
+        .flower-deco.top-right { top: 15px; right: 15px; animation-delay: 0.5s; }
+        .flower-deco.bottom-left { bottom: 15px; left: 15px; animation-delay: 1s; }
+        .flower-deco.bottom-right { bottom: 15px; right: 15px; animation-delay: 1.5s; }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+
+        /* Header */
+        .header-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--rose-dark);
+            margin-bottom: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .names {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .names span {
+            color: var(--rose-deep);
+            font-size: 1.5rem;
+            vertical-align: middle;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+        }
+
+        /* Contador regresivo */
+        .countdown-container {
+            background: linear-gradient(135deg, var(--rose-pale) 0%, var(--rose-medium) 100%);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(212, 165, 165, 0.3);
+        }
+
+        .countdown-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 70px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--rose-deep);
+            display: block;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            color: var(--green-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        /* Mensaje de alerta */
+        .alert-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            border-left: 4px solid var(--rose-deep);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+            position: relative;
+            animation: slideIn 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            animation: bell 1s ease-in-out infinite;
+        }
+
+        @keyframes bell {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        .alert-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--rose-dark);
+            margin-bottom: 0.5rem;
+            padding-right: 3rem;
+        }
+
+        .alert-text {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .alert-date {
+            display: inline-block;
+            background: var(--rose-deep);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Días restantes para confirmar */
+        .confirm-urgency {
+            background: var(--green-sage);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirm-urgency::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255,255,255,0.1) 50%,
+                transparent 70%
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .confirm-text {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .days-left {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        /* SECCIÓN DE CONFIRMACIÓN INTEGRADA */
+        .rsvp-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--rose-medium);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .rsvp-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rsvp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .rsvp-intro {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .guest-form {
+            margin-bottom: 1.5rem;
+        }
+
+        .guest-form input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--rose-medium);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .guest-form input:focus {
+            outline: none;
+            border-color: var(--rose-deep);
+        }
+
+        .rsvp-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .rsvp-btn {
+            background: white;
+            border: 2px solid var(--rose-medium);
+            padding: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-btn:hover {
+            border-color: var(--rose-deep);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .rsvp-btn.selected {
+            background: var(--rose-pale);
+            border-color: var(--rose-deep);
+        }
+
+        .rsvp-btn-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rsvp-btn-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .rsvp-btn-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Botón principal mostrar opciones */
+        .btn-show-rsvp {
+            background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 20px rgba(180, 136, 136, 0.4);
+        }
+
+        .btn-show-rsvp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(180, 136, 136, 0.5);
+        }
+
+        /* Botón WhatsApp */
+        .btn-whatsapp {
+            background: white;
+            color: var(--rose-deep);
+            border: 2px solid var(--rose-medium);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-whatsapp:hover {
+            background: var(--rose-pale);
+            transform: translateY(-3px);
+        }
+
+        /* Modal de transferencia */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--rose-pale);
+            color: var(--text-dark);
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .bank-details {
+            background: var(--rose-pale);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .bank-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .bank-label {
+            color: #666;
+            font-weight: 300;
+        }
+
+        .bank-value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-family: monospace;
+            font-size: 1rem;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: var(--green-sage);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--green-dark);
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer-text {
+            margin-top: 2rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--rose-dark);
+        }
+
+        .date-highlight {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-top: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border: 1px solid #c3e6cb;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .reminder-card {
+                padding: 2rem 1rem;
+            }
+
+            .names {
+                font-size: 1.6rem;
+            }
+
+            .time-number {
+                font-size: 2rem;
+            }
+
+            .time-unit {
+                min-width: 60px;
+                padding: 0.8rem;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de corazones -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <div class="container">
+        <div class="reminder-card">
+            <!-- Decoración floral -->
+            <span class="flower-deco top-left">🌸</span>
+            <span class="flower-deco top-right">🌺</span>
+            <span class="flower-deco bottom-left">🌷</span>
+            <span class="flower-deco bottom-right">🌹</span>
+
+            <!-- Header -->
+            <div class="header-text">¡Nos casamos muy pronto!</div>
+            <h1 class="names">Abigail <span>♥</span> Nicolás</h1>
+
+            <!-- Contador regresivo -->
+            <div class="countdown-container">
+                <div class="countdown-title">Faltan para el gran día</div>
+                <div class="countdown" id="countdown">
+                    <div class="time-unit">
+                        <span class="time-number" id="days">00</span>
+                        <span class="time-label">Días</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="hours">00</span>
+                        <span class="time-label">Horas</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="minutes">00</span>
+                        <span class="time-label">Min</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="seconds">00</span>
+                        <span class="time-label">Seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerta de confirmación -->
+            <div class="alert-box">
+                <span class="alert-icon">🔔</span>
+                <div class="alert-title">¡No olvides confirmar!</div>
+                <div class="alert-text">
+                    Para organizar todo perfectamente, necesitamos que confirmes tu asistencia antes del:
+                    <br>
+                    <span class="alert-date">📅 1 de Abril de 2026</span>
+                </div>
+            </div>
+
+            <!-- Urgencia -->
+            <div class="confirm-urgency" id="urgencyBox">
+                <div class="confirm-text">
+                    Te quedan
+                    <span class="days-left" id="daysLeftConfirm">--</span>
+                    días para confirmar
+                </div>
+            </div>
+
+            <!-- BOTÓN PARA MOSTRAR OPCIONES DE CONFIRMACIÓN -->
+            <button class="btn-show-rsvp" id="showRsvpBtn" onclick="showRSVP()">
+                <span>💌</span>
+                Confirmar mi asistencia
+            </button>
+
+            <!-- SECCIÓN RSVP (INICIALMENTE OCULTA) -->
+            <div class="rsvp-section" id="rsvpSection">
+                <h2 class="rsvp-title">¿Cómo confirmarás?</h2>
+                
+                <div class="guest-form">
+                    <input type="text" id="guestName" placeholder="Ingresa tu nombre completo" required>
+                </div>
+
+                <div class="rsvp-options">
+                    <button class="rsvp-btn" onclick="handleTransfer()">
+                        <span class="rsvp-btn-icon">💝</span>
+                        <div class="rsvp-btn-title">Confirmar y Transferir</div>
+                        <div class="rsvp-btn-desc">Confirmo asistencia y realizo transferencia bancaria</div>
+                    </button>
+
+                    <button class="rsvp-btn" onclick="handleCash()">
+                        <span class="rsvp-btn-icon">💵</span>
+                        <div class="rsvp-btn-title">Confirmar - Pago en Efectivo</div>
+                        <div class="rsvp-btn-desc">Confirmo asistencia y abonaré en efectivo</div>
+                    </button>
+
+                    <button class="rsvp-btn" onclick="handleNoAttend()">
+                        <span class="rsvp-btn-icon">😢</span>
+                        <div class="rsvp-btn-title">No podré asistir</div>
+                        <div class="rsvp-btn-desc">Lamentablemente no podré acompañarlos</div>
+                    </button>
+                </div>
+
+                <div id="successMsg" class="success-message"></div>
+            </div>
+
+            <!-- Botón WhatsApp -->
+            <a href="https://wa.me/5493743487895?text=Hola! Tengo una consulta sobre la boda de Abigail y Nicolás" class="btn-whatsapp" target="_blank">
+                <span>💬</span>
+                ¿Tienes dudas? Escríbenos
+            </a>
+
+            <!-- Footer -->
+            <div class="footer-text">Te esperamos</div>
+            <div class="date-highlight">18 de Abril de 2026</div>
+        </div>
+    </div>
+
+    <!-- Modal de Transferencia -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 class="modal-title">Datos para Transferencia</h3>
+            
+            <div class="bank-details">
+                <div class="bank-row">
+                    <span class="bank-label">Titular:</span>
+                    <span class="bank-value">Abigail Magdalena Benítez</span>
+                </div>
+                <div class="bank-row">
+                    <span class="bank-label">Alias:</span>
+                    <span class="bank-value" id="aliasText">Boda.AbiNico</span>
+                </div>
+                <div class="bank-row">
+                    <span class="bank-label">CVU:</span>
+                    <span class="bank-value" id="cvuText">0000003100014458393359</span>
+                </div>
+            </div>
+
+            <button class="copy-btn" onclick="copyBankData()">
+                <span>📋</span> Copiar datos
+            </button>
+
+            <p style="margin-top: 1.5rem; color: #666; font-size: 0.9rem;">
+                Una vez realizada la transferencia, confirma por WhatsApp:
+            </p>
+
+            <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
+                <span>💬</span> Confirmar por WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Fecha de la boda: 18 de abril de 2026
+        const weddingDate = new Date('2026-04-18T20:00:00').getTime();
+        
+        // Fecha límite de confirmación: 1 de abril de 2026
+        const confirmDeadline = new Date('2026-04-01T23:59:59').getTime();
+
+        // Número de WhatsApp
+        const phoneNumber = '+5493743487895';
+        
+        // URL de tu invitación original (por si quieren ver más detalles)
+        const INVITACION_URL = 'https://nicolasnem.github.io/Boda-Abi-Nico/';
+
+        let currentGuestName = '';
+
+        // Crear corazones flotantes
+        function createHearts() {
+            const container = document.getElementById('heartsBg');
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '💓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 12 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Actualizar contador
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Calcular días restantes para confirmar
+        function updateConfirmDays() {
+            const now = new Date().getTime();
+            const distance = confirmDeadline - now;
+
+            if (distance < 0) {
+                document.getElementById('daysLeftConfirm').textContent = '0';
+                document.getElementById('urgencyBox').style.background = '#dc3545';
+                return;
+            }
+
+            const days = Math.ceil(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('daysLeftConfirm').textContent = days;
+
+            // Cambiar color según urgencia
+            const urgencyBox = document.getElementById('urgencyBox');
+            if (days <= 7) {
+                urgencyBox.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+            } else if (days <= 15) {
+                urgencyBox.style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+            }
+        }
+
+        // Mostrar sección RSVP
+        function showRSVP() {
+            const rsvpSection = document.getElementById('rsvpSection');
+            const showBtn = document.getElementById('showRsvpBtn');
+            
+            rsvpSection.classList.add('active');
+            showBtn.style.display = 'none';
+            
+            // Scroll suave hacia la sección
+            setTimeout(() => {
+                rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        // Obtener nombre del invitado
+        function getGuestName() {
+            const nameInput = document.getElementById('guestName');
+            currentGuestName = nameInput.value.trim();
+            if (!currentGuestName) {
+                alert('Por favor, ingresa tu nombre completo para confirmar.');
+                nameInput.focus();
+                return false;
+            }
+            return true;
+        }
+
+        // Manejar transferencia
+        function handleTransfer() {
+            if (!getGuestName()) return;
+            
+            document.getElementById('transferModal').classList.add('active');
+            updateWhatsAppLink('transfer');
+        }
+
+        // Manejar pago en efectivo
+        function handleCash() {
+            if (!getGuestName()) return;
+            
+            const message = `¡Hola! Soy ${currentGuestName}. Confirmo mi asistencia a la boda de Abigail y Nicolás. Abonaré en efectivo. ¡Gracias!`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showSuccess('¡Gracias! Tu confirmación ha sido enviada. Te esperamos el 18 de abril.');
+        }
+
+        // Manejar no asistencia
+        function handleNoAttend() {
+            if (!getGuestName()) return;
+            
+            const message = `¡Hola! Soy ${currentGuestName}. Lamentablemente no podré asistir a la boda de Abigail y Nicolás. Les deseo lo mejor en este día tan especial.`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showSuccess('Gracias por avisarnos. Te extrañaremos.');
+        }
+
+        // Actualizar link de WhatsApp
+        function updateWhatsAppLink(type) {
+            const link = document.getElementById('whatsappLink');
+            let message = '';
+            
+            if (type === 'transfer') {
+                message = `¡Hola! Soy ${currentGuestName}. Confirmo mi asistencia a la boda de Abigail y Nicolás. Ya realicé la transferencia bancaria. ¡Nos vemos el 18 de abril!`;
+            }
+            
+            link.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('transferModal').classList.remove('active');
+        }
+
+        // Copiar datos bancarios
+        function copyBankData() {
+            const alias = document.getElementById('aliasText').textContent;
+            const cvu = document.getElementById('cvuText').textContent;
+            const textToCopy = `Alias: ${alias}\nCVU: ${cvu}\nTitular: Abigail Magdalena Benítez`;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span>✓</span> ¡Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Mostrar mensaje de éxito
+        function showSuccess(message) {
+            const msgDiv = document.getElementById('successMsg');
+            msgDiv.textContent = message;
+            msgDiv.classList.add('show');
+            
+            setTimeout(() => {
+                msgDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('transferModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Inicializar
+        createHearts();
+        updateCountdown();
+        updateConfirmDays();
+        setInterval(updateCountdown, 1000);
+        setInterval(updateConfirmDays, 60000);
+    </script>
+</body>
+</html>
